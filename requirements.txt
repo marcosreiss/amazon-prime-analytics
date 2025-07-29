@@ -5,3 +5,5 @@ matplotlib
 seaborn
 tqdm
 python-dotenv
+pycountry-convert
+plotly
