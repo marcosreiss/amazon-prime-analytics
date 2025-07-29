@@ -12,7 +12,7 @@ df = pd.read_csv("data/amazon_prep_with_release_year.csv")
 filmes = df[df['type'] == 'Movie'].copy()
 filmes['duracao_min'] = pd.to_numeric(filmes['duration'].str.extract(r'(\d+)')[0], errors='coerce')
 filmes_longos = (
-    filmes[['title', 'duracao_min', 'release_year', 'country']]
+    filmes[['title', 'duracao_min', 'release_year']]
     .dropna()
     .sort_values(by='duracao_min', ascending=False)
     .head(10)
@@ -25,7 +25,7 @@ with st.container():
             "title": "Título", 
             "duracao_min": "Duração (min)", 
             "release_year": "Ano", 
-            "country": "País"
+            # "country": "País"
         }),
         use_container_width=True
     )
@@ -34,7 +34,7 @@ with st.container():
 series = df[df['type'] == 'TV Show'].copy()
 series['temporadas'] = pd.to_numeric(series['duration'].str.extract(r'(\d+)')[0], errors='coerce')
 series_longas = (
-    series[['title', 'temporadas', 'release_year', 'country']]
+    series[['title', 'temporadas', 'release_year']]
     .dropna()
     .sort_values(by='temporadas', ascending=False)
     .head(10)
@@ -47,7 +47,7 @@ with st.container():
             "title": "Título", 
             "temporadas": "Temporadas", 
             "release_year": "Ano", 
-            "country": "País"
+            # "country": "País"
         }),
         use_container_width=True
     )
