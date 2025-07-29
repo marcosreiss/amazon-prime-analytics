@@ -2,7 +2,7 @@ import streamlit as st
 import altair as alt
 
 def grafico_tipos(df):
-    st.subheader("📺 Distribuição por Tipo")
+    st.subheader("Distribuição por Tipo")
     tipo = df['type'].value_counts().reset_index()
     tipo.columns = ['Tipo', 'Contagem']
 
