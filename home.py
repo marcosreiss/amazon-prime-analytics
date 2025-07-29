@@ -20,16 +20,20 @@ def home(df):
     st.markdown("Explore os principais indicadores do catálogo da Amazon Prime Video.")
 
     mostrar_metricas(df)
-    grafico_top_generos(df)
+    col1, col2 = st.columns(2)
+    with col1:
+        grafico_lancamentos_por_ano(df)
+    with col2:
+        grafico_duracao(df)
+        
     col1, col2 = st.columns(2)
 
     with col1:
-        grafico_lancamentos_por_ano(df)
-
+        grafico_top_generos(df)
     with col2:
         grafico_tipos(df)
 
-    grafico_duracao(df)
+    
     
 home(df)
 

@@ -4,6 +4,17 @@ import altair as alt
 def grafico_top_generos(df):
     st.subheader("🎭 Top 10 Gêneros Mais Comuns")
 
+    tipo = st.radio(
+        "Filtrar por Tipo:",
+        ["Todos", "Filmes", "Séries"],
+        horizontal=True
+    )
+
+    if tipo == "Filmes":
+        df = df[df['type'] == 'Movie']
+    elif tipo == "Séries":
+        df = df[df['type'] == 'TV Show']
+
     generos = (
         df['listed_in']
         .dropna()
