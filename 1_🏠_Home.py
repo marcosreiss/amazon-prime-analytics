@@ -40,7 +40,7 @@ home(df)
 st.markdown("---")
 st.markdown(
     "<div style='text-align: center; font-size: 0.8rem;'>"
-    "Feito com ❤️ para a disciplina de Tópicos Especiais - IFMA 2025"
+    "Feito para a disciplina de Tópicos Especiais - IFMA 2025"
     "</div>",
     unsafe_allow_html=True
 )
