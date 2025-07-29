@@ -18,7 +18,7 @@ def grafico_duracao(df):
     series = series[series['temporadas'] <= 13]
 
     tipo = st.radio(
-        "",  # label vazio para manter layout limpo
+        "  ",  # label vazio para manter layout limpo
         ["Filmes", "Séries"],
         horizontal=True
     )
