@@ -66,29 +66,30 @@ with st.container():
     ).properties(height=400)
     st.altair_chart(chart, use_container_width=True)
 
-# === Evolução temporal por país específico ===
-st.subheader("📈 Evolução de Títulos ao Longo do Tempo por País")
+# === Evolução temporal por país ===
+st.subheader("📈 Evolução de Títulos ao Longo do Tempo por País (Top 5)")
 
-# Prepara dados por país + ano
+# Prepara dados
 df_ano = df[['release_year', 'country']].dropna()
-df_ano['country'] = df_ano['country'].str.split(',').explode().str.strip()
+df_ano = df_ano.assign(country=df_ano['country'].str.split(',')).explode('country')
+df_ano['country'] = df_ano['country'].str.strip()
 df_ano['release_year'] = pd.to_numeric(df_ano['release_year'], errors='coerce')
 df_ano = df_ano[df_ano['release_year'].notna()]
 
-paises_unicos = sorted(df_ano['country'].unique())
-pais_escolhido = st.selectbox("Selecione um país para análise temporal:", paises_unicos)
+top_5 = df_ano['country'].value_counts().head(5).index
+df_filtrado = df_ano[df_ano['country'].isin(top_5)]
 
-dados_filtrados = (
-    df_ano[df_ano['country'] == pais_escolhido]
-    .groupby('release_year')
+evolucao = (
+    df_filtrado.groupby(['release_year', 'country'])
     .size()
     .reset_index(name='Quantidade')
 )
 
-linha = alt.Chart(dados_filtrados).mark_line(point=True).encode(
+linha = alt.Chart(evolucao).mark_line(point=True).encode(
     x=alt.X('release_year:O', title='Ano'),
     y=alt.Y('Quantidade:Q', title='Nº de Lançamentos'),
-    tooltip=['release_year', 'Quantidade']
-).properties(height=350)
+    color=alt.Color('country:N', title='País'),
+    tooltip=['release_year', 'country', 'Quantidade']
+).properties(height=400)
 
 st.altair_chart(linha, use_container_width=True)
